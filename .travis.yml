@@ -3,19 +3,19 @@ services:
   - docker
 
 before_install:
-  - docker build -t ile/react-test -f ./client/Dockerfile.dev ./client
+  - docker build -t mcankka/react-test -f ./client/Dockerfile.dev ./client
 
 script:
-  - docker run -e CI=true ile/react-test npm test
+  - docker run -e CI=true mcankka/react-test npm test
 
 after_success:
-  - docker build -t ile/multi-client ./client
-  - docker build -t ile/multi-nginx ./nginx
-  - docker build -t ile/multi-server ./server
-  - docker build -t ile/multi-worker ./worker
+  - docker build -t mcankka/multi-client ./client
+  - docker build -t mcankka/multi-nginx ./nginx
+  - docker build -t mcankka/multi-server ./server
+  - docker build -t mcankka/multi-worker ./worker
 
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_ID" --password-stdin
-  - docker push ile/multi-client
-  - docker push ile/multi-nginx
-  - docker push ile/multi-server
-  - docker push ile/multi-worker
+  - docker push mcankka/multi-client
+  - docker push mcankka/multi-nginx
+  - docker push mcankka/multi-server
+  - docker push mcankka/multi-worker
